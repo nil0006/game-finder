@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Platforms</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+<div class="flex flex-wrap w-full"> 
+  @for (platform of allPlatform; track $index) {
+    <div class="w-full" >
+    <ion-card (click)="goToAllGames(platform)" class="h-44 bg-cover bg-center" [ngStyle]="{'background-image': 'url(' + allPlatform[$index]?.image_background
+
+    + ')'}">
+<div class="card-overlay w-full h-full flex justify-center items-center">
+  <ion-card-header class="text-white text-3xl font-bold">{{platform.name}}</ion-card-header>
+</div>
+    </ion-card>
+  </div>
+  }
+</div>
+</ion-content>

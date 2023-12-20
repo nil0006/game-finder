@@ -1,20 +1,90 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+
+  <ion-header [translucent]="true">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title>Game Store</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-content [fullscreen]="true">
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large">Game Finder</ion-title>
+      </ion-toolbar>
+    </ion-header>
+  
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div class="flex mx-3">
+    <ion-searchbar animated="true" placeholder="Search Games" (keyup.enter)="search()" [(ngModel)]="searchData" class="custom text-black"></ion-searchbar>
+    
+  </div>
+  <div class="flex flex-col">
+    <div class="flex justify-between items-center mx-5 my-3 text-2xl "><span class="font-semibold">Populer</span> <ion-icon name="arrow-forward-outline" (click)="routeToAllGame()"></ion-icon></div>
+    <div class="overflow-x-scroll flex scroll">
+      @for (item of gamesData; track $index) {
+        <div class="w-full">
+          <ion-card class="w-80 h-72" (click)="goToIndivitualGame(item.id)">
+            <img class="rounded-lg shadow-md w-full h-44"  [src]="item.short_screenshots[0].image" />
+            <ion-card-header>
+              <ion-card-title>{{item.name}}</ion-card-title>
+              <ion-card-subtitle> {{item.rating}} <ion-icon name="star"></ion-icon> &nbsp; @for (genre of item.genres; track $index) {
+                
+                <span>&nbsp;{{genre.name}} @if ($index != item.genres.length-1) {&#x2022;}  &nbsp; </span> 
+              } </ion-card-subtitle>
+            </ion-card-header>
+          </ion-card>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="flex flex-col mt-4">
+    <div class="flex justify-between items-center mx-5 my-3 text-2xl "><span class="font-semibold">Dicsover Genres</span> </div>
+    <div class="overflow-x-scroll grid grid-rows-2 grid-flow-col gap-2 scroll">
+    @for (genre of allGenres; track $index) {
+      <div class="w-full" (click)="goToGenre(genre)">
+      <ion-card class="w-40 h-32 bg-cover bg-center" [ngStyle]="{'background-image': 'url(' + allGenres[$index]?.image_background
+
+      + ')'}">
+  <div class="card-overlay w-full h-full flex justify-center items-center">
+    <ion-card-header class="text-white text-2xl text-center font-bold">{{genre.name}}</ion-card-header>
+  </div>
+      </ion-card>
+    </div>
+    }
+  </div>
+  </div>
+  <div class="flex flex-col mt-4">
+    <div class="flex justify-between items-center mx-5 my-3 text-2xl "><span class="font-semibold">Dicsover Platforms</span> <ion-icon name="arrow-forward-outline" (click)="routeToAllPlatform()"></ion-icon></div>
+    <div class="overflow-x-scroll flex scroll">
+    @for (platform of allPlatform.slice(0,9); track $index) {
+      <div class="w-full">
+      <ion-card (click)="goToAllGames(platform)" class="w-60 h-44 bg-cover bg-center" [ngStyle]="{'background-image': 'url(' + allPlatform[$index]?.image_background
+
+      + ')'}">
+  <div class="card-overlay w-full h-full flex justify-center items-center">
+    <ion-card-header class="text-white text-3xl font-bold">{{platform.name}}</ion-card-header>
+  </div>
+      </ion-card>
+    </div>
+    }
+  </div>
+  </div>
+  <div class="flex flex-col mt-4">
+    <div class="flex justify-between items-center mx-5 my-3 text-2xl "><span class="font-semibold"> Go To Stores</span></div>
+    <div class="overflow-x-scroll flex scroll">
+    @for (store of stores; track $index) {
+      <div class="w-full">
+        <a [href]="'//'+store.domain" target="_blank">
+      <ion-card class="w-60 h-44 bg-cover bg-center" [ngStyle]="{'background-image': 'url(' + store.image_background
+
+      + ')'}">
+  <div class="card-overlay w-full h-full flex justify-center items-center">
+    <ion-card-header class="text-white text-3xl text-center font-bold">{{store.name}}</ion-card-header>
+  </div>
+      </ion-card>
+    </a>
+    </div>
+    }
+  </div>
   </div>
 </ion-content>

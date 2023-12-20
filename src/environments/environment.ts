@@ -6,6 +6,8 @@ export const environment = {
   production: false
 };
 
+export const BASE_URL = 'https://api.rawg.io/api/';
+export const API_KEY = 'dcda29b3771048e492f91d0a95cdf0ee';
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

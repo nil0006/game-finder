@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Achivements</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  @for (item of achivements; track $index) {
+  <div class="w-full">
+    <ion-card class="">
+      <img class="rounded-lg shadow-md w-full " [src]="item.image" />
+      <ion-card-header>
+        <ion-card-title>{{item.name}}</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+  </div>
+  }
+
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

@@ -1,0 +1,113 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Game Store</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="flex flex-col pb-8">
+    <div class="bg-cover text-white bg-center w-full h-64"
+      [style]="{'background-image': 'url(' + indivitualGameData.background_image + ')'}">
+      <div class="card-overlay w-full h-64 flex flex-col justify-end items-center py-6">
+
+        <span class="text-3xl font-semibold py-2 text-center">{{indivitualGameData.name}}</span>
+        <span class="text-white py-2">
+          @for (genre of indivitualGameData.genres; track $index) {
+          <span class="text-center">&nbsp;{{genre.name}} @if ($index != indivitualGameData.genres.length-1)
+            {&#x2022;}&nbsp;</span>
+          }
+        </span>
+        <span class="py-2">Release Date : {{indivitualGameData.released |date}}</span>
+      </div>
+
+    </div>
+    <Span class="mx-4 text-2xl font-semibold mt-3">Screenshots</Span>
+    <div class="overflow-x-scroll flex scroll">
+      @for (screenshot of screenShotList; track $index) {
+      <div class="w-full">
+        <ion-card class="w-72 h-44 bg-cover bg-center" [ngStyle]="{'background-image': 'url(' + screenshot.image
+      + ')'}">
+        </ion-card>
+
+      </div>
+      }
+    </div>
+    <Span class="mx-4 text-2xl font-semibold mt-3">Details</Span>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-card (click)="goToAllAchivements(indivitualGameData.id)" class="bg-cover bg-center w-36" [ngStyle]="{'background-image': 'url(' + indivitualGameData.background_image_additional
+      + ')'}">
+            <div class="overlay w-full h-full flex justify-center items-center">
+              <ion-card-header class="text-white text-lg text-center font-bold">{{achivementCount}} <br>Achivements
+              </ion-card-header>
+            </div>
+          </ion-card>
+        </ion-col>
+        <ion-col>
+          <ion-card class="bg-cover bg-center w-36" [ngStyle]="{'background-image': 'url(' + indivitualGameData.background_image_additional
+      + ')'}">
+            <div class="overlay w-full h-full flex justify-center items-center">
+              <ion-card-header class="text-white text-lg text-center font-bold">{{indivitualGameData.metacritic}} <br> Metacritic
+              </ion-card-header>
+            </div>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-card class="bg-cover bg-center w-36" [ngStyle]="{'background-image': 'url(' + indivitualGameData.background_image_additional
+      + ')'}">
+            <div class="overlay w-full h-full flex justify-center items-center">
+              <ion-card-header class="text-white text-lg text-center font-bold"> {{indivitualGameData.esrb_rating?.name}} <br>Rated
+              </ion-card-header>
+            </div>
+          </ion-card>
+        </ion-col>
+        <ion-col>
+          <ion-card class="bg-cover bg-center w-36" [ngStyle]="{'background-image': 'url(' + indivitualGameData.background_image_additional
+      + ')'}">
+            <div class="overlay w-full h-full flex justify-center items-center">
+              <ion-card-header class="text-white text-lg text-center font-bold">{{indivitualGameData.rating}}/5 <br>Rating
+              </ion-card-header>
+            </div>
+          </ion-card>
+        </ion-col>
+        
+      </ion-row>
+    </ion-grid>
+    <div class="flex flex-col mt-4">
+      <div class="flex justify-between items-center mx-5 my-3 text-2xl "><span class="font-semibold">Platforms</span>
+      </div>
+      <div class="overflow-x-scroll flex scroll">
+        @for (platform of indivitualGameData.platforms; track $index) {
+        <div class="w-full">
+          <ion-card class="w-40 h-16 bg-cover bg-center" [ngStyle]="{'background-image': 'url(' + platform.platform.image_background
+
+      + ')'}">
+            <div class="overlay w-full h-full flex justify-center items-center">
+              <ion-card-header class="text-white text-lg font-bold">{{platform.platform.name}}</ion-card-header>
+            </div>
+          </ion-card>
+        </div>
+        }
+      </div>
+    </div>
+
+
+    <span class="mx-4 text-2xl font-semibold mt-3 mb-5">
+      Description
+    </span>
+    <p class="wrap mx-4">
+      {{(showMore) ? indivitualGameData.description_raw : indivitualGameData.description_raw | slice:0:300}}
+      <span>...</span>
+      <a href="javascript:;" (click)="showMore=!showMore">[Show @if (showMore) {Less}@else {More}]</a>
+    </p>
+
+
+  </div>
+
+</ion-content>
