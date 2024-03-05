@@ -15,7 +15,6 @@ I made this project while learning ionic and I am using the RAWG api for the Gam
 
 To Run this project run
 
-Add the firebase config to in app.module.ts
 
 ```bash
   npm install
